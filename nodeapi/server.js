@@ -1,11 +1,12 @@
 const express = require('express');
 
 const app = express();
+//bringin in routes
 
-app.get('/', (req, res) => {
-   res.send('working')
+const { getPosts } = require('./routes/post');
 
-});
+
+app.get('/', getPosts);
 
 const PORT = 8080;
 app.listen(PORT, () => {
