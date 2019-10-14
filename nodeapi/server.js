@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const db = require('./config/database')
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 
 // Db onnection
 mongoose.Promise = global.Promise;
@@ -26,6 +27,7 @@ const postRoutes = require('./routes/post');
 // use middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 
 app.use('/', postRoutes);
