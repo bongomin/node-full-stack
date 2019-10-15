@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const uuidv1 = require('uuid/v1');
+const crypto = require('crypto');
+
 const Schema = mongoose.Schema;
 
 
@@ -28,4 +31,36 @@ const userSchema = new Schema({
 
 });
 
+
+// virtual field  handling the hash and encryping password
+userSchema.virtual('password')
+   .set(function (password) {
+      // create temporary varaible _password
+      this._password = password
+      // generate timeStamp
+      this.salt = uuidv1();
+      // encrypt password
+      this.hashed_password = this.encryptPassword(password)
+   })
+   .get(function () {
+      return this._password
+   })
+
+//methods 
+userSchema.methods = {
+
+   encryptPassword: function (password) {
+      if (!password) return "";
+      try {
+         return crypto.createHmac('sha1', this.salt)
+            .update(password)
+            .digest('hex');
+      }
+      catch (err) {
+         return ""
+      }
+
+   }
+
+}
 module.exports = mongoose.model('User', userSchema);
