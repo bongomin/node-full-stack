@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const db = require('./config/database')
@@ -27,6 +28,7 @@ const authRoutes = require('./routes/auth');
 // use middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json());
+app.use(cookieParser())
 app.use(expressValidator());
 
 // use routes as middleware
