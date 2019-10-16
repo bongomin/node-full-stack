@@ -58,7 +58,13 @@ exports.signout = (req, res, next) => {
 
 // requiresignin  protect route method to be applied on all routes that are to be protected
 exports.requireSignin = expressJwt({
-   secret: db.JWT_SECRET
+
+   //if token is valid , express jwt apends the verified userId 
+   // in an auth key to the request object
+
+   secret: db.JWT_SECRET,
+   userProperty: 'auth'
+
 
 
 })
