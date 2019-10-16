@@ -2,12 +2,13 @@ const User = require('../models/user');
 
 exports.userById = (req, res, next, id) => {
    User.findById(id).exec((err, user) => {
-      if (err || !user) return res.status(400).json({ user: "user not found ! " })
-
+      if (err || !user) {
+         return res.status(400).json({ user: "user not found ! " })
+      }
+      req.profile = user ///adds profile object with profile info
+      next();
    })
 
-   req.profile = user ///adds profile object with profile info
-   next()
 }
 
 exports.hasAuthorization = (req, res, next) => {
@@ -18,8 +19,7 @@ exports.hasAuthorization = (req, res, next) => {
 }
 
 
-// show all users
-
+//show all users
 exports.allUsers = (req, res) => {
    User.find((err, users) => {
       if (err) {
@@ -28,4 +28,10 @@ exports.allUsers = (req, res) => {
       res.json({ users: users })
 
    }).select('_id name email updated created')
+}
+
+// get single User
+exports.getUser = (req, res) => {
+   return res.json(req.profile);
+
 }
