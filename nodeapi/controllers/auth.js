@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const db = require('../config/database')
+const db = require('../config/database');
+const expressJwt = require('express-jwt');
 
 exports.signup = async (req, res) => {
 
@@ -49,8 +50,15 @@ exports.signin = (req, res, next) => {
 
 }
 
-
+// signout method / function
 exports.signout = (req, res, next) => {
    res.clearCookie('t')
    return res.json({ message: 'You have successfully logged out..!!' })
 }
+
+// requiresignin  protect route method
+exports.requireSignin = expressJwt({
+   secret: db.JWT_SECRET
+
+
+})
