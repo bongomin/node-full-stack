@@ -16,3 +16,16 @@ exports.hasAuthorization = (req, res, next) => {
       res.status(403).json({ error: 'user is not authorised to perform this action ' })
    }
 }
+
+
+// show all users
+
+exports.allUsers = (req, res) => {
+   User.find((err, users) => {
+      if (err) {
+         return res.status(400).json({ err: err })
+      }
+      res.json({ users: users })
+
+   }).select('_id name email updated created')
+}

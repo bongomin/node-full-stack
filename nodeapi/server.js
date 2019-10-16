@@ -24,6 +24,7 @@ const app = express();
 //bringin in routes
 const postRoutes = require('./routes/post');
 const authRoutes = require('./routes/auth');
+const userRouters = require('./routes/user');
 
 // use middleware
 app.use(morgan("dev"));
@@ -35,6 +36,7 @@ app.use(expressValidator());
 // use routes as middleware
 app.use('/', postRoutes);
 app.use('/', authRoutes);
+app.use('/', userRouters);
 
 // jwt error handling middleware
 app.use(function (err, req, res, next) {
