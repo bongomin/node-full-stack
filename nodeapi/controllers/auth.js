@@ -56,7 +56,7 @@ exports.signout = (req, res, next) => {
    return res.json({ message: 'You have successfully logged out..!!' })
 }
 
-// requiresignin  protect route method
+// requiresignin  protect route method to be applied on all routes that are to be protected
 exports.requireSignin = expressJwt({
    secret: db.JWT_SECRET
 
