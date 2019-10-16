@@ -31,9 +31,17 @@ app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(expressValidator());
 
+
 // use routes as middleware
 app.use('/', postRoutes);
 app.use('/', authRoutes);
+
+// jwt error handling middleware
+app.use(function (err, req, res, next) {
+   if (err.name === 'UnauthorizedError') {
+      res.status(401).json({ error: 'Unauthorized ! . please insert Token  (Bearer--token--' })
+   }
+});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
