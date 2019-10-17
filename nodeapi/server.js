@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const db = require('./config/database')
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
-const _ = require('lodash');
+
 
 // Db onnection
 mongoose.Promise = global.Promise;

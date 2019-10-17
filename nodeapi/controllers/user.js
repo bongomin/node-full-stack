@@ -58,3 +58,18 @@ exports.updateUser = (req, res) => {
 
    })
 }
+
+// delete user.
+
+exports.deleteUser = (req, res) => {
+   const user = req.profile;
+   user.remove((err, user) => {
+      if (err) {
+         return res.status(400).json({
+            error: err
+         })
+      }
+      res.json({ message: "user deleted successfully..." })
+   })
+
+}
