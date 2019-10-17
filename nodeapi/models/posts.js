@@ -19,7 +19,6 @@ const postSchema = new Schema({
    photo: {
       data: Buffer,
       contentType: String
-
    },
 
    postedBy: {            ///note : how to relate from tables or Schemas . remember postedBy is also in the User Schema   ///so relationship is done by objectId and User Schema name
