@@ -14,6 +14,7 @@ exports.getPosts = (req, res) => {
 
 // posting data /posts to the database
 exports.createPost = (req, res) => {
+
    const form = formidable.IncomingForm();
    form.keepExtensions = true
    form.parse(req, (err, fields, files) => {
@@ -23,6 +24,11 @@ exports.createPost = (req, res) => {
          })
       }
       let post = new Post(fields)
+
+      req.profile.hashed_password = undefined
+      req.profile.salt = undefined
+      req.profile.postedBy = undefined
+
       post.postedBy = req.profile  ///trying to get post postedBy user
       if (files.photo) {
          post.photo.data = fs.readFileSync(files.photo.path)
