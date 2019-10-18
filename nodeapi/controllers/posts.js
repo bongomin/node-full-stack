@@ -55,4 +55,25 @@ exports.createPost = (req, res) => {
    //          post: result
    //       })
    //    })
+
+
+
+   // get posts by a user
+
+
 }
+
+exports.postsByUser = (req, res, next) => {
+   Post.find({ postedBy: req.profile._id })
+      .populate('postedBy', "_id name")
+      .sort('_created')
+      .exec((err, posts) => {
+         if (err) {
+            return res.status(400).json({
+               err: err
+            });
+         }
+         res.json({ posts })
+
+      });
+};
