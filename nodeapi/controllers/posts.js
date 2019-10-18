@@ -5,7 +5,9 @@ const fs = require('fs');
 // getting all posts from the database
 
 exports.getPosts = (req, res) => {
-   const post = Post.find().select(' id title body')
+   const post = Post.find()
+      .populate('postedBy', '_d name')  //getting postedBy person by use of populate method
+      .select(' id title body')
       .then((posts) => {
          res.status(200).json({ posts: posts });
       })
