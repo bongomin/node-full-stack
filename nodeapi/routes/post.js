@@ -6,7 +6,7 @@ const router = express.Router();
 const { createPostValidator } = require('../validator');
 const _ = require('lodash');
 
-router.get('/', getPosts);
+router.get('/posts', getPosts);
 router.get('/posts/by/:userId', requireSignin, postsByUser);
 router.post('/posts/new/:userId', requireSignin, createPost, createPostValidator);
 router.put('/post/:postId', requireSignin, isPoster, updatePost);

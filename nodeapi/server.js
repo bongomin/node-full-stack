@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const db = require('./config/database')
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const expressValidator = require('express-validator');
 
 
@@ -26,6 +27,20 @@ const app = express();
 const postRoutes = require('./routes/post');
 const authRoutes = require('./routes/auth');
 const userRouters = require('./routes/user');
+
+
+///apiDocs
+app.get('/', (req, res) => {
+   fs.readFile('docs/apiDocs.json', (err, data) => {
+      if (err) {
+         return res.json({
+            error: err
+         })
+      }
+      const docs = JSON.parse(data);
+      res.json(docs)
+   })
+})
 
 // use middleware
 app.use(morgan("dev"));
