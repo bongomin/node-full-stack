@@ -20,7 +20,7 @@ exports.postById = (req, res, next, id) => {
 }
 
 // getting all posts from the database
-exports.getPosts = (req, res) => {
+exports.getPosts = (req, res, next) => {
    const post = Post.find()
       .populate('postedBy', '_d name')  //getting postedBy person by use of populate method
       .select(' id title body')
@@ -31,7 +31,7 @@ exports.getPosts = (req, res) => {
 };
 
 // posting data /posts to the database
-exports.createPost = (req, res) => {
+exports.createPost = (req, res, next) => {
 
    const form = formidable.IncomingForm();
    form.keepExtensions = true
@@ -92,4 +92,31 @@ exports.postsByUser = (req, res, next) => {
          res.json({ posts })
 
       });
+};
+
+exports.isPoster = (req, res, next) => {
+   let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id;
+   if (!isPoster) {
+      return res.status(403).json({
+         error: "user is not authorized"
+      });
+   }
+   next()
+};
+
+
+
+exports.deletePost = (req, res, next) => {
+   let post = req.post;
+   post.remove((err, post) => {
+      if (err) {
+         return res.status(400).json({
+            error: err
+         });
+      }
+      res.json({
+         message: "Post Deleted SuccessFully"
+      });
+
+   });
 };
