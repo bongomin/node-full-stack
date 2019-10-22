@@ -13,7 +13,15 @@ class Signup extends Component {
 
       }
    }
+
+   // method that handles on change
+   handleChange = (name) => (event) => {
+      // note: this syntax will work for all the three input fields
+      this.setState({ [name]: event.target.value })
+   }
    render() {
+      // destructuring value state
+      const { name, email, password } = this.state
       return (
          <div className="container">
             <div className="row mt-5 mb-5">
@@ -27,15 +35,15 @@ class Signup extends Component {
                   <form >
                      <div className="form-group">
                         <label className="text-muted">Name</label>
-                        <input type="text" className="form-control"></input>
+                        <input type="text" onChange={this.handleChange('name')} value={name} className="form-control"></input>
                      </div>
                      <div className="form-group">
                         <label className="text-muted">Email</label>
-                        <input type="email" className="form-control"></input>
+                        <input type="email" onChange={this.handleChange('email')} value={email} className="form-control"></input>
                      </div>
                      <div className="form-group">
                         <label className="text-muted">password</label>
-                        <input type="password" className="form-control"></input>
+                        <input type="password" onChange={this.handleChange('password')} value={password} className="form-control"></input>
                      </div>
                      <button className="btn btn-raised btn-primary">Signup</button>
 
