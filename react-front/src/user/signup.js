@@ -19,6 +19,7 @@ class Signup extends Component {
       // note: this syntax will work for all the three input fields
       this.setState({ [name]: event.target.value })
    };
+
    // clickSubmit method that submits to the database
    clickSubmit = event => {
       event.preventDefault()
@@ -28,8 +29,23 @@ class Signup extends Component {
          email,
          password
       };
-      // fetching data fron front end and posting int to backend
-      fetch("http://localhost:8080/signup", {
+      //method being called is down next
+      this.signUp(User)
+         .then(data => {
+            if (data.error) this.setState({ error: data.error })
+            else
+               this.setState({
+                  error: "",
+                  name: "",
+                  email: "",
+                  password: ""
+
+               });
+         });
+   };
+
+   signUp = User => {
+      return fetch("http://localhost:8080/signup", {
          method: "POST",
          headers: {
             Accept: "application/json",
@@ -45,7 +61,6 @@ class Signup extends Component {
             console.log(err)
 
          )
-
    }
    render() {
       // destructuring value state
