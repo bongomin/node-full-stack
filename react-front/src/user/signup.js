@@ -18,6 +18,34 @@ class Signup extends Component {
    handleChange = (name) => (event) => {
       // note: this syntax will work for all the three input fields
       this.setState({ [name]: event.target.value })
+   };
+   // clickSubmit method that submits to the database
+   clickSubmit = event => {
+      event.preventDefault()
+      const { name, email, password } = this.state
+      const User = {
+         name,
+         email,
+         password
+      };
+      // fetching data fron front end and posting int to backend
+      fetch("http://localhost:8080/signup", {
+         method: "POST",
+         headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+         },
+         body: JSON.stringify(User)
+      })
+         .then(response => {
+            return response.json
+         }
+         )
+         .catch(err =>
+            console.log(err)
+
+         )
+
    }
    render() {
       // destructuring value state
@@ -45,7 +73,7 @@ class Signup extends Component {
                         <label className="text-muted">password</label>
                         <input type="password" onChange={this.handleChange('password')} value={password} className="form-control"></input>
                      </div>
-                     <button className="btn btn-raised btn-primary">Signup</button>
+                     <button onClick={this.clickSubmit} className="btn btn-raised btn-primary">Signup</button>
 
                   </form>
                </div>
