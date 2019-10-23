@@ -66,7 +66,26 @@ class Signup extends Component {
             console.log(err)
 
          )
-   }
+   };
+   signupForm = (name, email, password) => (
+      < form >
+         <div className="form-group">
+            <label className="text-muted">Name</label>
+            <input type="text" onChange={this.handleChange('name')} value={name} className="form-control"></input>
+         </div>
+         <div className="form-group">
+            <label className="text-muted">Email</label>
+            <input type="email" onChange={this.handleChange('email')} value={email} className="form-control"></input>
+         </div>
+         <div className="form-group">
+            <label className="text-muted">password</label>
+            <input type="password" onChange={this.handleChange('password')} value={password} className="form-control"></input>
+         </div>
+         <button onClick={this.clickSubmit} className="btn btn-raised btn-primary">Signup</button>
+
+      </form>
+   )
+
    render() {
       // destructuring value state
       const { name, email, password, error, open } = this.state
@@ -75,7 +94,7 @@ class Signup extends Component {
             <div className="row mt-5 mb-5">
                <div className="col-8 m-auto">
                   <h2 className="mt-5 mt-5">Signup </h2>
-                  <div className="alert alert-primary" style={{ display: error ? "" : "none" }}>
+                  <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                      {error}
                   </div>
 
@@ -87,22 +106,7 @@ class Signup extends Component {
             </div>
             <div className="row">
                <div className="col-8 m-auto">
-                  <form >
-                     <div className="form-group">
-                        <label className="text-muted">Name</label>
-                        <input type="text" onChange={this.handleChange('name')} value={name} className="form-control"></input>
-                     </div>
-                     <div className="form-group">
-                        <label className="text-muted">Email</label>
-                        <input type="email" onChange={this.handleChange('email')} value={email} className="form-control"></input>
-                     </div>
-                     <div className="form-group">
-                        <label className="text-muted">password</label>
-                        <input type="password" onChange={this.handleChange('password')} value={password} className="form-control"></input>
-                     </div>
-                     <button onClick={this.clickSubmit} className="btn btn-raised btn-primary">Signup</button>
-
-                  </form>
+                  {this.signupForm(name, email, password)}
                </div>
             </div>
 
