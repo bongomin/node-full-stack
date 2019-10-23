@@ -80,7 +80,7 @@ class Signin extends Component {
       return (
          <div className="container">
             <div className="row mt-5 mb-5">
-               <div className="col-8 m-auto">
+               <div className="col-md-8 col-lg-7 col-xs-9 col-sm-9 m-auto">
                   <h2 className="mt-5 mt-5">Signin </h2>
                   <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                      {error}
@@ -89,7 +89,7 @@ class Signin extends Component {
                </div>
             </div>
             <div className="row">
-               <div className="col-8 m-auto">
+               <div className="col-md-8 col-lg-7 col-xs-9 col-sm-9 m-auto">
                   {this.signinForm(email, password)}
                </div>
             </div>
