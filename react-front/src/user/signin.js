@@ -10,7 +10,8 @@ class Signin extends Component {
          email: "",
          password: "",
          error: "",
-         redirectToReferer: false
+         redirectToReferer: false,
+         loading: false
 
       }
    }
@@ -32,6 +33,7 @@ class Signin extends Component {
 
    // clickSubmit method that submits to the database
    clickSubmit = event => {
+      this.setState({ loading: true })
       event.preventDefault()
       const { email, password } = this.state;
       const user = {
@@ -57,7 +59,7 @@ class Signin extends Component {
          )
          .then(data => {
             if (data.error) {
-               this.setState({ error: data.error });
+               this.setState({ error: data.error, loading: false });
             }
             else {
                //authenticate 
@@ -89,7 +91,7 @@ class Signin extends Component {
 
    render() {
       // destructuring value state
-      const { email, password, error, redirectToReferer } = this.state
+      const { email, password, error, redirectToReferer, loading } = this.state
       if (redirectToReferer) {
          return <Redirect to="/" />  //redirecting to the home page if redirectToReferer is true
       }
@@ -101,6 +103,9 @@ class Signin extends Component {
                   <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                      {error}
                   </div>
+                  {loading ? <div className="jumbotron text-center">
+                     <h2>Loading .....</h2>
+                  </div> : ""}
                   <hr></hr>
                </div>
             </div>
