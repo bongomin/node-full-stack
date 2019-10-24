@@ -10,7 +10,9 @@ class Signup extends Component {
          email: "",
          password: "",
          error: "",
-         open: false
+         open: false,
+         loading: false
+
 
       }
    }
@@ -24,6 +26,7 @@ class Signup extends Component {
 
    // clickSubmit method that submits to the database
    clickSubmit = event => {
+      this.setState({ loading: true })
       event.preventDefault()
       const { name, email, password } = this.state;
       const user = {
@@ -49,7 +52,7 @@ class Signup extends Component {
          )
          .then(data => {
             if (data.error) {
-               this.setState({ error: data.error });
+               this.setState({ error: data.error, loading: false });
             }
             else {
                this.setState({
@@ -88,7 +91,7 @@ class Signup extends Component {
 
    render() {
       // destructuring value state
-      const { name, email, password, error, open } = this.state
+      const { name, email, password, error, open, loading } = this.state
       return (
          <div className="container">
             <div className="row mt-5 mb-5">
@@ -97,6 +100,9 @@ class Signup extends Component {
                   <div className="alert alert-danger" style={{ display: error ? "" : "none" }}>
                      {error}
                   </div>
+                  {loading ? <div className="jumbotron text-center">
+                     <h2>Loading .....</h2>
+                  </div> : ""}
 
                   <div className="alert alert-info" style={{ display: open ? "" : "none" }}>
                      New Account Created Buddy...You can Signin .
