@@ -54,7 +54,14 @@ const Menu = ({ history }) => (
                      Signout
                </a>
                </li>
+
+               <li className="nav-item">
+                  <a className="nav-link">
+                     {isAuthenticated().user.name}
+                  </a>
+               </li>
             </>
+
 
          )}
 
