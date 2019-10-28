@@ -20,24 +20,46 @@ export const signout = (next) => {
 
 }
 
+export const isAuthenticated = () => {
+   if (localStorage.getItem("jwt")) {
+      return JSON.parse(localStorage.getItem("jwt"))
+
+   } else {
+      return false
+   }
+
+}
+
 const Menu = ({ history }) => (
    <div>
       <ul className="nav nav-tabs bg-primary">
          <li className="nav-item">
             <Link style={isActive(history, "/")} className="nav-link" to="/">Home</Link>
          </li>
-         <li className="nav-item">
-            <Link style={isActive(history, "/signin")} className="nav-link" to="/signin">Signin</Link>
-         </li>
-         <li className="nav-item">
-            <Link style={isActive(history, "/signup")} className="nav-link" to="/signup">Register</Link>
-         </li>
+         {!isAuthenticated() && (
+            <>
+               <li className="nav-item">
+                  <Link style={isActive(history, "/signin")} className="nav-link" to="/signin">Signin</Link>
+               </li>
+               <li className="nav-item">
+                  <Link style={isActive(history, "/signup")} className="nav-link" to="/signup">Register</Link>
+               </li>
+            </>
 
-         <li className="nav-item">
-            <a style={isActive(history, "/signup"), { cursor: "pointer", color: "#ff" }} onClick={() => signout(() => history.push('/'))} className="nav-link">
-               Signout
+         )}
+         {isAuthenticated() && (
+            <>
+               <li className="nav-item">
+                  <a style={isActive(history, "/signup"), { cursor: "pointer", color: "#ff" }} onClick={() => signout(() => history.push('/'))} className="nav-link">
+                     Signout
                </a>
-         </li>
+               </li>
+            </>
+
+         )}
+
+
+
       </ul>
 
    </div>
