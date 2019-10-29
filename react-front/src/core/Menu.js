@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom'
 
+// .env variable holding (REACT_APP_API_URL) can be replaced with http://localhost:8080
+
 const isActive = (history, path) => {
    if (history.location.pathname === path) return { color: "#ff9900" }
    else return { color: "#ffffff" }
