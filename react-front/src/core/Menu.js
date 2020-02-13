@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom'
+import('./Menu.css');
 
 // .env variable holding (REACT_APP_API_URL) can be replaced with http://localhost:8080
 
@@ -32,6 +33,7 @@ export const isAuthenticated = () => {
 
 }
 
+
 const Menu = ({ history }) => (
    <div>
       <ul className="nav nav-tabs bg-primary">
@@ -57,7 +59,7 @@ const Menu = ({ history }) => (
                </a>
                </li>
 
-               <li className="nav-item">
+               <li className="nav-item pull-right">
                   <Link className="nav-link" to={`/user/${isAuthenticated().user._id}`} style={{ color: "#fff" }}>
                      {`${isAuthenticated().user.name}'s profile`}
                   </Link>
@@ -66,11 +68,7 @@ const Menu = ({ history }) => (
 
 
          )}
-
-
-
       </ul>
-
    </div>
 
 )
